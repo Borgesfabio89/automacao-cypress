@@ -1,17 +1,28 @@
+const selectorsList = {
+  usernameField: "[name='username']",
+  passwordField: "[name='password']",
+  submitButton: "[type='submit']",
+  sectionTitleTopBar: '.oxd-text--h6',
+  wrongCredentialsAlert: '.oxd-alert-content-text',
+  
+ 
+};
+
+
 describe('Login', () => {
   it('Login - Success', () => {
     cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
-    cy.get("[name='username']").type("Admin")
-    cy.get("[name='password']").type("admin123")
-    cy.get("[type='submit']").click()
+    cy.get(selectorsList.usernameField).type("Admin")
+    cy.get(selectorsList.passwordField).type("admin123")
+    cy.get(selectorsList.submitButton).click()
     cy.location('pathname').should('equal', '/web/index.php/dashboard/index' )
-    cy.get('.oxd-text--h6').contains('Dashboard')
+    cy.get(selectorsList.sectionTitleTopBar).contains('Dashboard')
   })
   it ('Login - Fail', () => {
     cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
-    cy.get("[name='username']").type("wrong_username")
-    cy.get("[name='password']").type("wrong_password")
-    cy.get("[type='submit']").click()
-    cy.get('.oxd-alert-content-text').contains('Invalid credentials')
+    cy.get(selectorsList.usernameField).type("wrong_username")
+    cy.get(selectorsList.passwordField).type("wrong_password")
+    cy.get(selectorsList.submitButton).click()
+    cy.get(selectorsList.wrongCredentialsAlert).contains('Invalid credentials')
   })
 })
