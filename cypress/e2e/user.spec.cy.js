@@ -17,6 +17,9 @@ describe('Login', () => {
     dateImputIconField: ".oxd-date-input-icon",
     closeDateButton: '.--close',
     submitButton: "[type='submit']",
+    genericComboBox:"[tabindex='0']",
+    changeNationalityList: ":nth-child(25) > span",
+    changeMaritalStatusList: ":nth-child(3) > span",
   };
   
   it.only('User Info Update - Success', () => {
@@ -37,7 +40,10 @@ describe('Login', () => {
     cy.get(selectorsList.closeDateButton).click()
     cy.get(selectorsList.submitButton).eq(0).click()
     cy.get('.oxd-toast-close')
-
+    cy.get(selectorsList.genericComboBox).eq(0).click({force: true})
+    cy.get(selectorsList.changeNationalityList).click()
+    cy.get(selectorsList.genericComboBox).eq(1).click()
+    cy.get(selectorsList.changeMaritalStatusList).click()
   })
   it ('Login - Fail', () => {
     cy.visit('/auth/login')
